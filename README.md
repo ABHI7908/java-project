@@ -182,22 +182,6 @@ public class GlobalExceptionHandeller {
   <li><strong>gender</strong> → <code>@NotBlank</code></li>
 </ul>
 
-<pre><code>@NotBlank(message = "First name is required")
-@Size(min = 4, message = "First name must be at least 4 characters")
-private String fName;
-
-@NotBlank(message = "Last name is required")
-private String lName;
-
-@NotBlank(message = "Email is required")
-@Email(message = "Email should be valid")
-private String email;
-
-@NotBlank(message = "Gender is required")
-private String gender;
-</code></pre>
-
-
 <hr>
 
 <h2>📊 H2 Database Console</h2>
