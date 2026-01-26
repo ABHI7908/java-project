@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.suvam</groupId>
-	<artifactId>MVC_Crud_h2database</artifactId>
+	<artifactId>employee-management</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>SpringbootCRUD_h2DB</name>
-	<description>mvc based crud operation using h2 database</description>
+	<name>SpringbootCRUD</name>
+	<description>EmployeeManagementCRUD</description>
 	<url/>
 	<licenses>
 		<license/>
@@ -54,11 +54,11 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
