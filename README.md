@@ -84,8 +84,6 @@ src/
       <td>Database password</td>
     </tr>
   </table>
-  
-    <hr />
 
 <h2>🧪 API Endpoints</h2>
   <table border="1" cellpadding="8" cellspacing="0">
