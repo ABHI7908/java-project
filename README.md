@@ -1,25 +1,24 @@
-<h1 align="center">💼 Employee Management System (Spring Boot + H2 Database)</h1>
+<h1 align="center">💼 Employee Management System</h1>
 
 <p align="center">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" alt="Java" width="60" height="60"/>
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" alt="Spring Boot" width="60" height="60"/>
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg" alt="Maven" width="60" height="60"/>
-
+  <b>Spring Boot • PostgreSQL • REST API • CRUD Application</b>
 </p>
 
 <p align="center">
-  A simple <b>CRUD-based Employee Management System</b> built using <b>Spring Boot</b> and <b>H2 Database</b>.  
-  It demonstrates <b>RESTful APIs</b>, <b>validation using Jakarta annotations</b>, and <b>Global Exception Handling</b>.
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" width="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" width="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg" width="50"/>
 </p>
 
 <hr>
 
 <h2>📘 Overview</h2>
 <p>
-The <b>Employee Management System</b> allows you to manage employee data with CRUD operations — 
-Create, Read, Update, and Delete.  
-It is designed using the Spring Boot framework, uses an in-memory H2 database, 
-and applies <b>Bean Validation</b> with custom error messages via a <b>Global Exception Handler</b>.
+The <b>Employee Management System</b> is a CRUD-based RESTful application built using
+<b>Spring Boot</b> and <b>PostgreSQL</b>.  
+It demonstrates clean layered architecture, environment-based configuration,
+Jakarta Bean Validation, and Global Exception Handling.
 </p>
 
 <hr>
@@ -28,112 +27,103 @@ and applies <b>Bean Validation</b> with custom error messages via a <b>Global Ex
 <ul>
   <li>☕ <b>Java 21+</b></li>
   <li>🌱 <b>Spring Boot</b> (Spring Web, Spring Data JPA)</li>
-  <li>🗃️ <b>H2 Database</b> (in-memory)</li>
+  <li>🐘 <b>PostgreSQL</b></li>
   <li>🧾 <b>Jakarta Validation</b></li>
   <li>📦 <b>Maven</b></li>
 </ul>
 
 <hr>
 
-<h2>📁 Project Folder Structure</h2>
+ <h2>✨ Features</h2>
+  <ul>
+    <li>📌 CRUD APIs for Employee Management</li>
+    <li>🐳 Fully Dockerized backend</li>
+    <li>⚡ Fast startup & lightweight image</li>
+  </ul>
+
+  <hr />
+  
+<h2>📁 Project Structure</h2>
 
 <pre>
 src/
  └── main/
      ├── java/
-     │    └── com/
-     │         └── suvam/
-     │              ├── controller/
-     │              │     ├── EmployeeController.java
-     │              │     └── GlobalExceptionHandeller.java
-     │              ├── exception/
-     │              │     └── CustomException.java (optional)
-     │              ├── model/
-     │              │     └── Employee.java
-     │              ├── repository/
-     │              │     └── EmployeeRepository.java
-     │              └── service/
-     │                    └── EmployeeService.java
+     │    └── com/suvam/
+     │         ├── controller/
+     │         │     ├── EmployeeController.java
+     │         │     └── GlobalExceptionHandler.java
+     │         ├── model/
+     │         │     └── Employee.java
+     │         ├── repository/
+     │         │     └── EmployeeRepository.java
+     │         └── service/
+     │               └── EmployeeService.java
      └── resources/
-          ├── application.properties
-          └── data.sql (optional)
+          └── application.yml
 </pre>
 
 <hr>
 
-<h2>⚙️ Application Configuration</h2>
+<h2>🔐 Environment Variables</h2>
+  <table border="1" cellpadding="8" cellspacing="0">
+    <tr>
+      <th>Variable</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>DB_URL</td>
+      <td>PostgreSQL JDBC URL</td>
+    </tr>
+    <tr>
+      <td>DB_USER</td>
+      <td>Database username</td>
+    </tr>
+    <tr>
+      <td>DB_PWD</td>
+      <td>Database password</td>
+    </tr>
+  </table>
+  
+    <hr />
 
-<pre>
-spring.application.name=SpringbootCRUD_h2DB
-server.port=8081
-
-spring.datasource.url=jdbc:h2:mem:testdb
-spring.datasource.driverClassName=org.h2.Driver
-spring.datasource.username=sa
-spring.datasource.password=password
-spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
-</pre>
-
-<hr>
-
-<hr>
-
-<h2>🌐 API Endpoints (with Port Numbers)</h2>
-
-<p>Base URL: <code>http://localhost:8081/demo</code></p>
-
-<table border="1" cellspacing="0" cellpadding="8">
-  <thead>
+<h2>🧪 API Endpoints</h2>
+  <table border="1" cellpadding="8" cellspacing="0">
     <tr>
       <th>Method</th>
       <th>Endpoint</th>
-      <th>Full URL (Port: 8081)</th>
       <th>Description</th>
-      <th>Request Body</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td><b>GET</b></td>
-      <td><code>/employee</code></td>
-      <td><code>http://localhost:8081/demo/employee</code></td>
-      <td>Fetch all employees</td>
-      <td>❌</td>
     </tr>
     <tr>
-      <td><b>GET</b></td>
-      <td><code>/employee/{id}</code></td>
-      <td><code>http://localhost:8081/demo/employee/{id}</code></td>
-      <td>Fetch employee by ID</td>
-      <td>❌</td>
+      <td>GET</td>
+      <td>demo/employees</td>
+      <td>Get all employees</td>
     </tr>
     <tr>
-      <td><b>POST</b></td>
-      <td><code>/employee</code></td>
-      <td><code>http://localhost:8081/demo/employee</code></td>
-      <td>Create a new employee</td>
-      <td>✅ JSON (validated)</td>
+      <td>GET</td>
+      <td>demo/employees/{id}</td>
+      <td>Get employee by ID</td>
     </tr>
     <tr>
-      <td><b>PUT</b></td>
-      <td><code>/employee/{id}</code></td>
-      <td><code>http://localhost:8081/demo/employee/{id}</code></td>
-      <td>Update an existing employee</td>
-      <td>✅ JSON (validated)</td>
+      <td>POST</td>
+      <td>demo/employees</td>
+      <td>Create new employee</td>
     </tr>
     <tr>
-      <td><b>DELETE</b></td>
-      <td><code>/employee/{id}</code></td>
-      <td><code>http://localhost:8081/demo/employee/{id}</code></td>
-      <td>Delete employee by ID</td>
-      <td>❌</td>
+      <td>PUT</td>
+      <td>demo/employees/{id}</td>
+      <td>Update employee</td>
     </tr>
-  </tbody>
-</table>
+    <tr>
+      <td>DELETE</td>
+      <td>demo/employees/{id}</td>
+      <td>Delete employee</td>
+    </tr>
+  </table>
 
-<hr>
+  <hr />
 
-<h2>📦 Example JSON for POST / PUT</h2>
+<h2>📦 Sample JSON Request</h2>
 
 <pre>
 {
@@ -149,70 +139,108 @@ spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 <h2>⚠️ Global Exception Handling</h2>
 
 <p>
-A <b>GlobalExceptionHandeller</b> class handles all validation errors 
-using <code>@RestControllerAdvice</code> and <code>@ExceptionHandler</code>.
-This ensures clean and consistent error responses.
+Validation errors are handled using <code>@RestControllerAdvice</code> and
+<code>@ExceptionHandler</code> to provide clean and consistent error responses.
 </p>
-
-<pre>
-@RestControllerAdvice
-public class GlobalExceptionHandeller {
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity&lt;Map&lt;String, String&gt;&gt; handleMethodArgsNotValidException(MethodArgumentNotValidException ex) {
-        Map&lt;String, String&gt; resp = new HashMap&lt;&gt;();
-        ex.getBindingResult().getAllErrors().forEach((error) -&gt; {
-            String fieldName = ((FieldError) error).getField();
-            String message = error.getDefaultMessage();
-            resp.put(fieldName, message);
-        });
-        return new ResponseEntity&lt;&gt;(resp, HttpStatus.BAD_REQUEST);
-    }
-}
-</pre>
-
-<hr>
-
-<h1>🧩 Field Validations in Spring Boot Model</h1>
-
-<ul>
-  <li><strong>fName</strong> → <code>@NotBlank</code>, <code>@Size(min = 4)</code></li>
-  <li><strong>lName</strong> → <code>@NotBlank</code></li>
-  <li><strong>email</strong> → <code>@NotBlank</code>, <code>@Email</code></li>
-  <li><strong>gender</strong> → <code>@NotBlank</code></li>
-</ul>
-
-<hr>
-
-<h2>📊 H2 Database Console</h2>
-
-<p>Access the in-memory database at:</p>
-<pre>http://localhost:8081/h2-console</pre>
-
-<p>Use these credentials:</p>
-<ul>
-  <li>JDBC URL: <code>jdbc:h2:mem:testdb</code></li>
-  <li>Username: <code>sa</code></li>
-  <li>Password: <code>password</code></li>
-</ul>
 
 <hr>
 
 <h2>🧩 Architecture Flow</h2>
 
 <pre>
-Client (Postman / Browser)
-       ↓
-Controller Layer (EmployeeController)
-       ↓
-Service Layer (EmployeeService)
-       ↓
-Repository Layer (EmployeeRepository)
-       ↓
-Database (H2 in-memory)
+Client
+  ↓
+Controller
+  ↓
+Service
+  ↓
+Repository
+  ↓
+PostgreSQL Database
 </pre>
 
 <hr>
 
+
+<h2>🚀 Build, Run & Docker Workflow</h2>
+
+<h3>🔐 Step 1: Set Environment Variables (Terminal)</h3>
+
+<p><b>Windows (PowerShell)</b></p>
+<pre>
+$env:DB_URL="jdbc:postgresql://localhost:5432/EmployeeCRUD"
+$env:DB_USER="postgres"
+$env:DB_PWD="suvam123"
+</pre>
+
+<p><b>Linux / macOS</b></p>
+<pre>
+export DB_URL=jdbc:postgresql://localhost:5432/EmployeeCRUD
+export DB_USER=postgres
+export DB_PWD=suvam123
+</pre>
+
+<hr>
+
+<h3>📦 Step 2: Build JAR using Maven Wrapper</h3>
+
+<pre>
+./mvnw package
+</pre>
+
+<p>
+This command generates a runnable JAR file inside the <code>target/</code> directory.
+</p>
+
+<hr>
+
+<h3>🐳 Step 3: Create Docker Image</h3>
+
+<p>After creating the <code>Dockerfile</code> in the Spring Boot project root:</p>
+
+<pre>
+docker build -t employee-management .
+</pre>
+
+<hr>
+
+<h3>▶️ Step 4: Run Docker Container with Environment Variables</h3>
+
+<p>
+Run the Docker image while connecting to a <b>local PostgreSQL database</b>
+using environment variables:
+</p>
+
+<pre>
+docker run -p 8081:8081 \
+-e DB_URL="jdbc:postgresql://host.docker.internal:5432/EmployeeCRUD" \
+-e DB_USER="postgres" \
+-e DB_PWD="suvam123" \
+employee-management
+</pre>
+
+<p>
+Application will be available at:  
+<b>http://localhost:8081</b>
+</p>
+
+<hr>
+
+<h3>📤 Step 5: Push Docker Image to Docker Hub</h3>
+
+<pre>
+docker tag employee-management suvam478/employee-management
+docker login
+docker push suvam478/employee-management
+</pre>
+
+<p>
+Once pushed, anyone can pull and run the image directly from Docker Hub.
+</p>
+
+
+<hr>
 <h2>👨‍💻 Author</h2>
-<p><b>Developed by:</b> Suvam Debnath</p>
+<p>
+<b>Developed by:</b> Suvam Debnath
+</p>
