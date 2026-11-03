@@ -5,16 +5,21 @@ spring:
   application:
     name: employee-management
   datasource:
-    url: ${DB_URL}
-    username: ${DB_USER}
-    password: ${DB_PWD}
+    url: jdbc:h2:mem:employeedb
+    driver-class-name: org.h2.Driver
+    username: root
+    password: project@123
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
 
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
     show-sql: true
 
