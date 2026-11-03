@@ -20,10 +20,28 @@ The following guides illustrate how to use some features concretely:
 * [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
 * [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
 
+### Local MySQL
+
+The application connects to MySQL at `localhost:3306` by default, using the
+`employee_management` database and `root` user. Set these environment variables
+to match your existing local database before starting the application:
+
+```powershell
+$env:MYSQL_HOST = "localhost"
+$env:MYSQL_PORT = "3306"
+$env:MYSQL_DATABASE = "your_existing_database"
+$env:MYSQL_USER = "root"
+$securePassword = Read-Host "MySQL password" -AsSecureString
+$env:MYSQL_PASSWORD = (New-Object System.Net.NetworkCredential("", $securePassword)).Password
+.\mvnw.cmd spring-boot:run
+```
+
+The selected database must already exist. Hibernate uses `ddl-auto: update` and
+may update its tables on startup. H2 remains configured for tests.
+
 ### Maven Parent overrides
 
 Due to Maven's design, elements are inherited from the parent POM to the project POM.
 While most of the inheritance is fine, it also inherits unwanted elements like `<license>` and `<developers>` from the parent.
 To prevent this, the project POM contains empty overrides for these elements.
 If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
-

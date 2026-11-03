@@ -5,17 +5,11 @@ spring:
   application:
     name: employee-management
   datasource:
-    url: jdbc:h2:mem:employeedb
-    driver-class-name: org.h2.Driver
-    username: root
-    password: project@123
-  h2:
-    console:
-      enabled: true
-      path: /h2-console
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:${MYSQL_PORT:3306}/${MYSQL_DATABASE:employee_management}
+    username: ${MYSQL_USER:root}
+    password: ${MYSQL_PASSWORD}
 
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
     properties:

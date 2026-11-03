@@ -1,13 +1,13 @@
 <h1 align="center">💼 Employee Management System</h1>
 
 <p align="center">
-  <b>Spring Boot • PostgreSQL • REST API • CRUD Application</b>
+  <b>Spring Boot • MySQL • REST API • CRUD Application</b>
 </p>
 
 <p align="center">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" width="50"/>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg" width="50"/>
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" width="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg" width="50"/>
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/maven/maven-original.svg" width="50"/>
 </p>
 
@@ -16,7 +16,7 @@
 <h2>📘 Overview</h2>
 <p>
 The <b>Employee Management System</b> is a CRUD-based RESTful application built using
-<b>Spring Boot</b> and <b>PostgreSQL</b>.  
+<b>Spring Boot</b> and <b>MySQL</b>.
 It demonstrates clean layered architecture, environment-based configuration,
 Jakarta Bean Validation, and Global Exception Handling.
 </p>
@@ -25,9 +25,9 @@ Jakarta Bean Validation, and Global Exception Handling.
 
 <h2>⚙️ Technologies Used</h2>
 <ul>
-  <li>☕ <b>Java 21+</b></li>
+  <li>☕ <b>Java 25 LTS</b></li>
   <li>🌱 <b>Spring Boot</b> (Spring Web, Spring Data JPA)</li>
-  <li>🐘 <b>PostgreSQL</b></li>
+  <li>🐬 <b>MySQL</b></li>
   <li>🧾 <b>Jakarta Validation</b></li>
   <li>📦 <b>Maven</b></li>
 </ul>
@@ -72,16 +72,24 @@ src/
       <th>Description</th>
     </tr>
     <tr>
-      <td>DB_URL</td>
-      <td>PostgreSQL JDBC URL</td>
+      <td>MYSQL_HOST</td>
+      <td>MySQL server host (default: localhost)</td>
     </tr>
     <tr>
-      <td>DB_USER</td>
-      <td>Database username</td>
+      <td>MYSQL_PORT</td>
+      <td>MySQL server port (default: 3306)</td>
     </tr>
     <tr>
-      <td>DB_PWD</td>
-      <td>Database password</td>
+      <td>MYSQL_DATABASE</td>
+      <td>Existing database/schema name (default: employee_management)</td>
+    </tr>
+    <tr>
+      <td>MYSQL_USER</td>
+      <td>Database username (default: root)</td>
+    </tr>
+    <tr>
+      <td>MYSQL_PASSWORD</td>
+      <td>Database password; do not commit it to source control</td>
     </tr>
   </table>
 
@@ -154,7 +162,7 @@ Service
   ↓
 Repository
   ↓
-PostgreSQL Database
+MySQL Database
 </pre>
 
 <hr>
@@ -162,20 +170,39 @@ PostgreSQL Database
 
 <h2>🚀 Build, Run & Docker Workflow</h2>
 
-<h3>🔐 Step 1: Set Environment Variables (Terminal)</h3>
+<h3>🔐 Step 1: Configure MySQL</h3>
+
+<p>
+Create the database in MySQL if it does not already exist. For example, connect
+to your local MySQL server and run:
+</p>
+
+<pre>
+CREATE DATABASE employee_management;
+</pre>
+
+<p>The application uses <code>MYSQL_*</code> variables and defaults to
+<code>localhost:3306</code>, database <code>employee_management</code>, and
+user <code>root</code>. Set the password without putting it in the repository.</p>
 
 <p><b>Windows (PowerShell)</b></p>
 <pre>
-$env:DB_URL="jdbc:postgresql://localhost:5432/EmployeeCRUD"
-$env:DB_USER="postgres"
-$env:DB_PWD="suvam123"
+$env:MYSQL_HOST="localhost"
+$env:MYSQL_PORT="3306"
+$env:MYSQL_DATABASE="employee_management"
+$env:MYSQL_USER="root"
+$securePassword = Read-Host "MySQL password" -AsSecureString
+$env:MYSQL_PASSWORD = (New-Object System.Net.NetworkCredential("", $securePassword)).Password
 </pre>
 
 <p><b>Linux / macOS</b></p>
 <pre>
-export DB_URL=jdbc:postgresql://localhost:5432/EmployeeCRUD
-export DB_USER=postgres
-export DB_PWD=suvam123
+export MYSQL_HOST=localhost
+export MYSQL_PORT=3306
+export MYSQL_DATABASE=employee_management
+export MYSQL_USER=root
+read -s MYSQL_PASSWORD
+export MYSQL_PASSWORD
 </pre>
 
 <hr>
@@ -205,17 +232,17 @@ docker build -t employee-management .
 <h3>▶️ Step 4: Run Docker Container with Environment Variables</h3>
 
 <p>
-Run the Docker image while connecting to a <b>local PostgreSQL database</b>
+Run the Docker image while connecting to a <b>local MySQL database</b>
 using environment variables:
 </p>
 
 <pre>
-docker run -p 8081:8081 \
--e DB_URL="jdbc:postgresql://host.docker.internal:5432/EmployeeCRUD" \
--e DB_USER="postgres" \
--e DB_PWD="suvam123" \
-employee-management
+docker run -p 8081:8081 -e MYSQL_HOST=host.docker.internal -e MYSQL_PORT=3306 -e MYSQL_DATABASE=employee_management -e MYSQL_USER=root -e MYSQL_PASSWORD employee-management
 </pre>
+
+<p>Set <code>MYSQL_PASSWORD</code> in your local environment before running this
+command; Docker passes it through without putting the password in the command.
+The MySQL database must already exist and be reachable from the container.</p>
 
 <p>
 Application will be available at:  
