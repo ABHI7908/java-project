@@ -22,22 +22,32 @@ The following guides illustrate how to use some features concretely:
 
 ### Local MySQL
 
-The application connects to MySQL at `localhost:3306` by default, using the
-`employee_management` database and `root` user. Set these environment variables
-to match your existing local database before starting the application:
+The application connects only to MySQL at `localhost:3306` by default, using the
+`employeedb` database and `root` user. Set these environment variables to match
+your local MySQL setup before starting:
 
 ```powershell
+$env:JAVA_HOME = "$HOME\.jdk\temurin-25\jdk-25.0.5+8"
+$env:Path = "$env:JAVA_HOME\bin;$env:Path"
+java -version
 $env:MYSQL_HOST = "localhost"
 $env:MYSQL_PORT = "3306"
-$env:MYSQL_DATABASE = "your_existing_database"
+$env:MYSQL_DATABASE = "employeedb"
 $env:MYSQL_USER = "root"
 $securePassword = Read-Host "MySQL password" -AsSecureString
 $env:MYSQL_PASSWORD = (New-Object System.Net.NetworkCredential("", $securePassword)).Password
 .\mvnw.cmd spring-boot:run
 ```
 
-The selected database must already exist. Hibernate uses `ddl-auto: update` and
-may update its tables on startup. H2 remains configured for tests.
+Create the configured database in MySQL first if it does not exist. The
+application runs in the foreground; keep the terminal open while using it and
+press `Ctrl+C` to stop it. The browser-based employee management page at
+`http://localhost:8081/` supports adding, editing, and deleting employee rows;
+these operations are saved in MySQL. To view or edit database tables directly,
+connect to `localhost:3306` and select `employeedb` in MySQL Workbench. The JDBC
+URL is `jdbc:mysql://localhost:3306/employeedb`; it is not an HTTP/browser URL.
+Hibernate uses `ddl-auto: update` and may update its tables on startup. H2 is
+not configured.
 
 ### Maven Parent overrides
 

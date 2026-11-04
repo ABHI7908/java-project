@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -32,11 +31,8 @@ public class GlobalExceptionHandeller {
 
         String message = ex.getMessage() != null ? ex.getMessage().toLowerCase() : "";
 
-        if (message.contains("no such employee")) {
+        if (message.contains("no such employee") || message.contains("no details found")) {
             resp.put("message", "No such employee found");
-            return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
-        } else if (message.contains("no employees found")) {
-            resp.put("message", "No employees found");
             return new ResponseEntity<>(resp, HttpStatus.NOT_FOUND);
         }
 

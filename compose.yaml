@@ -1,0 +1,9 @@
+services:
+  database-admin:
+    image: phpmyadmin:5.2-apache
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8082:80"
+    environment:
+      PMA_HOST: host.docker.internal
+      PMA_PORT: 3306

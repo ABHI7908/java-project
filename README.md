@@ -46,21 +46,35 @@ Jakarta Bean Validation, and Global Exception Handling.
 <h2>📁 Project Structure</h2>
 
 <pre>
-src/
- └── main/
-     ├── java/
-     │    └── com/suvam/
-     │         ├── controller/
-     │         │     ├── EmployeeController.java
-     │         │     └── GlobalExceptionHandler.java
-     │         ├── model/
-     │         │     └── Employee.java
-     │         ├── repository/
-     │         │     └── EmployeeRepository.java
-     │         └── service/
-     │               └── EmployeeService.java
-     └── resources/
-          └── application.yml
+.
+├── .mvn/wrapper/              Maven Wrapper configuration
+├── src/
+│    ├── main/
+│    │    ├── java/com/suvam/
+│    │    │    ├── SpringbootCrudH2DbApplication.java
+│    │    │    ├── controller/
+│    │    │    │    └── EmployeeController.java
+│    │    │    ├── exceptions/
+│    │    │    │    └── GlobalExceptionHandeller.java
+│    │    │    ├── model/
+│    │    │    │    └── Employee.java
+│    │    │    ├── repository/
+│    │    │    │    └── EmployeeRepository.java
+│    │    │    └── service/
+│    │    │         └── EmployeeService.java
+│    │    └── resources/
+│    │         ├── application.yml
+│    │         └── static/
+│    │              └── index.html
+│    └── test/
+│         ├── java/com/suvam/
+│         │    └── SpringbootCrudH2DbApplicationTests.java
+├── .gitignore
+├── Dockerfile
+├── mvnw
+├── mvnw.cmd
+├── pom.xml
+└── README.md
 </pre>
 
 <hr>
@@ -81,7 +95,7 @@ src/
     </tr>
     <tr>
       <td>MYSQL_DATABASE</td>
-      <td>Existing database/schema name (default: employee_management)</td>
+      <td>Existing database/schema name (default: employeedb)</td>
     </tr>
     <tr>
       <td>MYSQL_USER</td>
@@ -102,32 +116,42 @@ src/
     </tr>
     <tr>
       <td>GET</td>
-      <td>demo/employees</td>
+      <td>demo/employee</td>
       <td>Get all employees</td>
     </tr>
     <tr>
       <td>GET</td>
-      <td>demo/employees/{id}</td>
+      <td>demo/employee/{id}</td>
       <td>Get employee by ID</td>
     </tr>
     <tr>
       <td>POST</td>
-      <td>demo/employees</td>
+      <td>demo/employee</td>
       <td>Create new employee</td>
     </tr>
     <tr>
       <td>PUT</td>
-      <td>demo/employees/{id}</td>
+      <td>demo/employee/{id}</td>
       <td>Update employee</td>
     </tr>
     <tr>
       <td>DELETE</td>
-      <td>demo/employees/{id}</td>
+      <td>demo/employee/{id}</td>
       <td>Delete employee</td>
     </tr>
   </table>
 
   <hr />
+
+<h2>🗄️ Database Admin (phpMyAdmin)</h2>
+<p>
+Start Docker Desktop, then run <code>docker compose up -d</code> from the project
+root. Open <a href="http://localhost:8082">http://localhost:8082</a> and sign in
+with the MySQL username and password configured for the application (defaults to
+user <code>root</code>). The admin page connects to the MySQL server on this
+computer at port <code>3306</code>. It is bound to localhost and is not exposed
+to other machines.
+</p>
 
 <h2>📦 Sample JSON Request</h2>
 
@@ -178,28 +202,48 @@ to your local MySQL server and run:
 </p>
 
 <pre>
-CREATE DATABASE employee_management;
+CREATE DATABASE employeedb;
 </pre>
 
-<p>The application uses <code>MYSQL_*</code> variables and defaults to
-<code>localhost:3306</code>, database <code>employee_management</code>, and
-user <code>root</code>. Set the password without putting it in the repository.</p>
+<p>The application uses MySQL only and reads connection settings from
+<code>MYSQL_*</code> environment variables. It defaults to
+<code>localhost:3306</code>, database <code>employeedb</code>, and
+user <code>root</code>. Set <code>MYSQL_PASSWORD</code> locally without
+putting the password in the repository.</p>
 
 <p><b>Windows (PowerShell)</b></p>
 <pre>
+$env:JAVA_HOME = "$HOME\.jdk\temurin-25\jdk-25.0.5+8"
+$env:Path = "$env:JAVA_HOME\bin;$env:Path"
+java -version
 $env:MYSQL_HOST="localhost"
 $env:MYSQL_PORT="3306"
-$env:MYSQL_DATABASE="employee_management"
+$env:MYSQL_DATABASE="employeedb"
 $env:MYSQL_USER="root"
 $securePassword = Read-Host "MySQL password" -AsSecureString
 $env:MYSQL_PASSWORD = (New-Object System.Net.NetworkCredential("", $securePassword)).Password
+.\mvnw.cmd spring-boot:run
 </pre>
+
+<p>Run these commands from PowerShell in the project directory after ensuring
+the <code>employeedb</code> database exists in MySQL. Maven runs the application
+in the foreground; keep this terminal open while using it, and press
+<code>Ctrl+C</code> to stop it. Set <code>MYSQL_HOST</code>,
+<code>MYSQL_PORT</code>, <code>MYSQL_DATABASE</code>, and <code>MYSQL_USER</code>
+to match your MySQL setup if you are not using the defaults. The application's
+JDBC connection is
+<code>jdbc:mysql://localhost:3306/employeedb</code>; use MySQL Workbench with
+host <code>localhost</code> and port <code>3306</code> to browse the database.
+This JDBC address is not a browser URL. For employee CRUD in a browser, open
+<code>http://localhost:8081/</code>; changes made there are stored in MySQL.
+Swagger API documentation is at
+<code>http://localhost:8081/swagger-ui/index.html</code>.</p>
 
 <p><b>Linux / macOS</b></p>
 <pre>
 export MYSQL_HOST=localhost
 export MYSQL_PORT=3306
-export MYSQL_DATABASE=employee_management
+export MYSQL_DATABASE=employeedb
 export MYSQL_USER=root
 read -s MYSQL_PASSWORD
 export MYSQL_PASSWORD
@@ -237,7 +281,7 @@ using environment variables:
 </p>
 
 <pre>
-docker run -p 8081:8081 -e MYSQL_HOST=host.docker.internal -e MYSQL_PORT=3306 -e MYSQL_DATABASE=employee_management -e MYSQL_USER=root -e MYSQL_PASSWORD employee-management
+docker run -p 8081:8081 -e MYSQL_HOST=host.docker.internal -e MYSQL_PORT=3306 -e MYSQL_DATABASE=employeedb -e MYSQL_USER=root -e MYSQL_PASSWORD employee-management
 </pre>
 
 <p>Set <code>MYSQL_PASSWORD</code> in your local environment before running this

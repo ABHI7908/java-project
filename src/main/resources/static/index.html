@@ -224,7 +224,7 @@
 
 <header>
     <h1>💼 Employee Management System</h1>
-    <p>Spring Boot &bull; H2 Database &bull; REST API</p>
+    <p>Spring Boot &bull; MySQL Database &bull; REST API</p>
 </header>
 
 <div class="container">
@@ -273,7 +273,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>S.No.</th>
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
@@ -331,11 +331,11 @@
                     </td></tr>`;
                 return;
             }
-            tbody.innerHTML = data.map(e => {
+            tbody.innerHTML = data.map((e, index) => {
                 const gc = e.gender === 'Male' ? 'gender-male' :
                            e.gender === 'Female' ? 'gender-female' : 'gender-other';
                 return `<tr>
-                    <td><strong>#${e.id}</strong></td>
+                    <td><strong>#${index + 1}</strong></td>
                     <td>${e.fName}</td>
                     <td>${e.lName}</td>
                     <td>${e.email}</td>
@@ -442,4 +442,3 @@
 
 </body>
 </html>
-
