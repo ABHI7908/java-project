@@ -1,0 +1,40 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - heading "💼 Employee Management System" [level=1] [ref=e3]
+    - paragraph [ref=e4]: Spring Boot • MySQL Database • REST API
+  - generic [ref=e5]:
+    - generic [ref=e6]:
+      - heading "➕ Add New Employee" [level=2] [ref=e7]
+      - generic [ref=e8]:
+        - generic [ref=e9]:
+          - generic [ref=e10]:
+            - generic [ref=e11]: First Name
+            - textbox "Enter first name" [ref=e12]
+          - generic [ref=e13]:
+            - generic [ref=e14]: Last Name
+            - textbox "Enter last name" [ref=e15]
+          - generic [ref=e16]:
+            - generic [ref=e17]: Email
+            - textbox "Enter email" [ref=e18]
+          - generic [ref=e19]:
+            - generic [ref=e20]: Gender
+            - combobox [ref=e21]:
+              - option "Select Gender" [selected]
+              - option "Male"
+              - option "Female"
+              - option "Other"
+        - button "Add Employee" [ref=e23] [cursor=pointer]
+    - generic [ref=e24]:
+      - generic [ref=e25]:
+        - heading "📋 Employee List" [level=2] [ref=e26]
+        - generic [ref=e27]: 0 employees
+      - table [ref=e29]:
+        - rowgroup [ref=e30]:
+          - row [ref=e31]:
+            - columnheader "S.No." [ref=e32]
+            - columnheader "First Name" [ref=e33]
+            - columnheader "Last Name" [ref=e34]
+            - columnheader "Email" [ref=e35]
+            - columnheader "Gender" [ref=e36]
+            - columnheader "Actions" [ref=e37]
+        - rowgroup
