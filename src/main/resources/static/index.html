@@ -255,6 +255,10 @@
                         <option value="Other">Other</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="dateOfBirth">Date of Birth</label>
+                    <input type="date" id="dateOfBirth">
+                </div>
             </div>
             <div class="btn-row">
                 <button type="submit" class="btn btn-primary" id="submitBtn">Add Employee</button>
@@ -278,6 +282,7 @@
                         <th>Last Name</th>
                         <th>Email</th>
                         <th>Gender</th>
+                        <th>Date of Birth</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -310,7 +315,7 @@
             const res = await fetch(API);
             if (!res.ok) {
                 tbody.innerHTML = `
-                    <tr><td colspan="6">
+                    <tr><td colspan="7">
                         <div class="empty-state">
                             <div class="icon">📭</div>
                             <p>No employees found. Add one above!</p>
@@ -323,7 +328,7 @@
             badge.textContent = data.length + ' employee' + (data.length !== 1 ? 's' : '');
             if (data.length === 0) {
                 tbody.innerHTML = `
-                    <tr><td colspan="6">
+                    <tr><td colspan="7">
                         <div class="empty-state">
                             <div class="icon">📭</div>
                             <p>No employees found. Add one above!</p>
@@ -340,6 +345,7 @@
                     <td>${e.lName}</td>
                     <td>${e.email}</td>
                     <td><span class="gender-badge ${gc}">${e.gender}</span></td>
+                    <td>${e.dateOfBirth || ''}</td>
                     <td class="actions">
                         <button class="btn btn-edit btn-sm" onclick='editEmp(${JSON.stringify(e)})'>✏️ Edit</button>
                         <button class="btn btn-danger btn-sm" onclick="deleteEmp(${e.id})">🗑️ Delete</button>
@@ -348,7 +354,7 @@
             }).join('');
         } catch (err) {
             tbody.innerHTML = `
-                <tr><td colspan="6">
+                <tr><td colspan="7">
                     <div class="empty-state">
                         <div class="icon">📭</div>
                         <p>No employees found. Add one above!</p>
@@ -366,7 +372,8 @@
             fName: document.getElementById('fName').value,
             lName: document.getElementById('lName').value,
             email: document.getElementById('email').value,
-            gender: document.getElementById('gender').value
+            gender: document.getElementById('gender').value,
+            dateOfBirth: document.getElementById('dateOfBirth').value || null
         };
 
         try {
@@ -406,6 +413,7 @@
         document.getElementById('lName').value = emp.lName;
         document.getElementById('email').value = emp.email;
         document.getElementById('gender').value = emp.gender;
+        document.getElementById('dateOfBirth').value = emp.dateOfBirth || '';
         document.getElementById('formTitle').textContent = '✏️ Edit Employee #' + emp.id;
         document.getElementById('submitBtn').textContent = 'Update Employee';
         document.getElementById('cancelBtn').style.display = 'inline-block';

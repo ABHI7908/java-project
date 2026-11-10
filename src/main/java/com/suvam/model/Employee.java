@@ -1,5 +1,8 @@
 package com.suvam.model;
 
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -29,18 +32,25 @@ public class Employee {
 	
 	@NotBlank(message = "Gender is required")
 	private String gender;
+
+	@Column(name = "date_of_birth")
+	private LocalDate dateOfBirth;
 	
 	public Employee() {
 	    
 	}
 
 	public Employee(long id, String fName, String lName, String email, String gender) {
-	
 		this.id = id;
 		this.fName = fName;
 		this.lName = lName;
 		this.email = email;
 		this.gender = gender;
+	}
+
+	public Employee(long id, String fName, String lName, String email, String gender, LocalDate dateOfBirth) {
+		this(id, fName, lName, email, gender);
+		this.dateOfBirth = dateOfBirth;
 	}
 	
 	public long getId() {
@@ -83,10 +93,18 @@ public class Employee {
 		this.gender = gender;
 	}
 
+	public LocalDate getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(LocalDate dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", fName=" + fName + ", lName=" + lName + ", email=" + email + ", gender="
-				+ gender + "]";
+				+ gender + ", dateOfBirth=" + dateOfBirth + "]";
 	}
 	
 }
